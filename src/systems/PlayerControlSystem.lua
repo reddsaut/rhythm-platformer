@@ -2,19 +2,23 @@ local PlayerControlSystem = Tiny.processingSystem()
 
 PlayerControlSystem.filter = Tiny.requireAll("move", "x", "y")
 
-function PlayerControlSystem:process(e)
-	local l, r, u, d = love.keyboard.isDown('a'), love.keyboard.isDown('d'), love.keyboard.isDown('w'), love.keyboard.isDown("s")
+function PlayerControlSystem:process(e, dt)
+	local l, r, u, d = love.keyboard.isDown('a') or love.keyboard.isDown('left'), love.keyboard.isDown('d') or love.keyboard.isDown('right'), love.keyboard.isDown('w') or love.keyboard.isDown('up'), love.keyboard.isDown("s") or love.keyboard.isDown('down')
+
+	local width, height, flags = love.window.getMode()
+
+	e.grounded = e.y >= (height - 200)
 
 	if l and not r then
-		e.x = e.x - 2
+		e.x = e.x - e.speed * dt
 	elseif r and not l then
-		e.x = e.x + 2
+		e.x = e.x + e.speed * dt
 	end
 
 	if u and not d then
-		e.y = e.y - 2
+		e.y = e.y - e.speed * dt
 	elseif d and not u then
-		e.y = e.y + 2
+		if not e.grounded then e.y = e.y + e.speed * dt end
 	end
 
 end

@@ -8,6 +8,8 @@ function player:init (x, y)
     self.x = x
     self.y = y
     self.move = 0
+    self.speed = 1000
+    self.grounded = false
 end
 
 return player

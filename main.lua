@@ -12,7 +12,8 @@ function love.load()
 end
 
 function love.draw()
-    world:update()
+    local dt = love.timer.getDelta()
+    world:update(dt)
 end
 
 function love.update(dt)
