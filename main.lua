@@ -1,7 +1,7 @@
 Tiny = require "lib.tiny"
 
 local player = require("src.entities.Player")
-player:init()
+player:init(100, 100)
 local drawSystem = require("src.systems.DrawSystem")
 
 local world = Tiny.world(drawSystem, player)

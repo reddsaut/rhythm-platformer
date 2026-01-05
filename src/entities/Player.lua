@@ -1,11 +1,12 @@
 local player = {}
 
-function player:init ()
-    self.draw = function (x, y)
+player.draw = function (x, y)
         love.graphics.rectangle("line", x, y, 50, 100)
-    end
-    self.x = 50
-    self.y = 50
+end
+
+function player:init (x, y)
+    self.x = x
+    self.y = y
 end
 
 return player
