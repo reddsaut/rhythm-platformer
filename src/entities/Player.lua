@@ -1,10 +1,8 @@
-local player = {}
+class = require("lib.30log")
 
-player.draw = function ()
-        love.graphics.rectangle(player.drawMode, player.x, player.y, 50, 100)
-end
+local Player = class("Player")
 
-function player:init (x, y)
+function Player:init (x, y)
     self.x = x
     self.y = y
     self.move = 0
@@ -14,4 +12,8 @@ function player:init (x, y)
     self.drawMode = "line"
 end
 
-return player
+function Player:draw()
+        love.graphics.rectangle(self.drawMode, self.x, self.y, 50, 100)
+end
+
+return Player
