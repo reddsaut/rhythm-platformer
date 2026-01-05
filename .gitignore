@@ -39,6 +39,9 @@ luac.out
 *.x86_64
 *.hex
 
-# macos fucking bullshit
+# macos
 .DS_Store
+
+# vscode
+.vscode/*
 
