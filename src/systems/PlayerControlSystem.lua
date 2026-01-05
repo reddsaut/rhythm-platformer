@@ -4,6 +4,7 @@ PlayerControlSystem.filter = Tiny.requireAll("move", "x", "y")
 
 function PlayerControlSystem:process(e, dt)
 	local l, r, u, d = love.keyboard.isDown('a') or love.keyboard.isDown('left'), love.keyboard.isDown('d') or love.keyboard.isDown('right'), love.keyboard.isDown('w') or love.keyboard.isDown('up'), love.keyboard.isDown("s") or love.keyboard.isDown('down')
+	local jump = love.keyboard.isDown('space')
 
 	local width, height, flags = love.window.getMode()
 
@@ -15,11 +16,27 @@ function PlayerControlSystem:process(e, dt)
 		e.x = e.x + e.speed * dt
 	end
 
-	if u and not d then
-		e.y = e.y - e.speed * dt
-	elseif d and not u then
-		if not e.grounded then e.y = e.y + e.speed * dt end
-	end
+	if e.x > width then
+        e.x = e.x - width
+    end
+
+    if e.x < 0 then
+        e.x = width + e.x
+    end
+
+    e.y = e.y + e.vert * dt
+    if e.grounded then
+    	e.drawMode = "fill"
+
+    	if jump then 
+    		e.vert = -2000 
+    	else
+    		e.vert = 0
+    	end
+    else
+    	e.drawMode = "line"
+    	e.vert = e.vert + 100
+    end
 
 end
 
