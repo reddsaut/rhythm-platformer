@@ -32,7 +32,7 @@ function PlayerControlSystem:process(e, dt)
     end
 
     if e.jumpTime > 0 then
-    	vel.y = - 2500
+    	vel.y = - 2000
     	e.jumpTime = e.jumpTime - dt
     end
 

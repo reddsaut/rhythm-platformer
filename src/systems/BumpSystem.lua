@@ -34,6 +34,7 @@ function BumpSystem:process(e, dt)
 	local vel = e.vel
 	local gravity = e.gravity or 0
 	if vel then vel.y = vel.y + gravity end
+	e.grounded = false
 
 
 	if vel then

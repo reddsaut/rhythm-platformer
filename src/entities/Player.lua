@@ -17,7 +17,7 @@ function Player:init (x, y)
     self.vert = 0
     self.canJump = true
 
-    self.gravity = 200
+    self.gravity = 170
 
     self.move = 0
     self.isPlayer = true
