@@ -8,34 +8,43 @@ function PlayerControlSystem:process(e, dt)
 
 	local width, height, flags = love.window.getMode()
 
-	e.grounded = e.y >= (height - 200)
-
 	if l and not r then
-		e.x = e.x - e.speed * dt
+		e.dx = -1 * e.speed
 	elseif r and not l then
-		e.x = e.x + e.speed * dt
+		e.dx = e.speed
+	else
+		e.dx = 0
 	end
 
-	if e.x > width then
-        e.x = e.x - width
+	-- if e.x > width then
+    --     e.x = e.x - width
+    -- end
+
+    -- if e.x < 0 then
+    --     e.x = width + e.x
+    -- end
+
+
+    if not jump then
+    	e.canJump = true
+    	e.jumpTime = 0
     end
 
-    if e.x < 0 then
-        e.x = width + e.x
+    if e.jumpTime > 0 then
+    	e.dy = -1400
+    	e.jumpTime = e.jumpTime - dt
     end
 
-    e.y = e.y + e.vert * dt
     if e.grounded then
     	e.drawMode = "fill"
 
-    	if jump then 
-    		e.vert = -2000 
-    	else
-    		e.vert = 0
+    	if jump and e.canJump then 
+    		e.jumpTime = .1
+    		e.canJump = false
     	end
     else
     	e.drawMode = "line"
-    	e.vert = e.vert + 100
+    	e.dy = e.dy + 100
     end
 
 end
