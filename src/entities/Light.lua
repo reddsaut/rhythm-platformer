@@ -2,10 +2,15 @@ class = require("lib.30log")
 
 local Light = class("Light")
 
-function Light:init (x, y)
+function Light:init (x, y, loop_length, loop_hits)
     self.x = x
     self.y = y
     self.lit = false
+    self.loop_length = loop_length
+    self.loop_hits = {}
+    for key, value in pairs(loop_hits) do
+        self.loop_hits[value] = true
+    end
 end
 
 function Light:draw ()
@@ -16,8 +21,10 @@ function Light:draw ()
     end
 end
 
-function Light:beat ()
-    self.lit = not self.lit
+function Light:beat (n)
+    if self.loop_hits[n % self.loop_length] then
+        self.lit = not self.lit
+    end
 end
 
 return Light

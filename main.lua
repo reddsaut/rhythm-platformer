@@ -3,16 +3,20 @@ Tiny = require "lib.tiny"
 
 local Player = require("src.entities.Player")
 local Light = require("src.entities.Light")
+local BeatDisplay = require("src.entities.BeatDisplay")
 
-local DrawSystem = require("src.systems.DrawSystem")
-local PlayerControlSystem = require("src.systems.PlayerControlSystem")
+local conductor = require("src.systems.Conductor")
+local drawSystem = require("src.systems.DrawSystem")
+local playerControlSystem = require("src.systems.PlayerControlSystem")
 
 local world = Tiny.world(
-    DrawSystem,
-    PlayerControlSystem,
+    conductor,
+    drawSystem,
+    playerControlSystem,
     Player(100,100),
-    Light(50,50),
-    Light(100,50)
+    Light(50,50,2,{0}),
+    Light(100,50,4,{2}),
+    BeatDisplay(500,50,4)
 )
 
 function love.load()
