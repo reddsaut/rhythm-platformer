@@ -12,6 +12,7 @@ function Platform:init(x, y, width, height)
 	self.width = width
 	self.height = height
 	self.drawMode = "line"
+	self.isSolid = true
 end
 
 return Platform

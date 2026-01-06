@@ -8,8 +8,7 @@ function Hazard:init (x, y, width, height)
     self.width = width or 50
     self.height = height or 50
     self.drawMode = "fill"
-    self.dx = 0
-    self.dy = 0
+    self.vel = {x = 0, y = 0}
 
     self.isHazard = true
 end

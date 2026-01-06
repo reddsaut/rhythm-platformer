@@ -10,13 +10,14 @@ function Player:init (x, y)
     self.drawMode = "line"
 
     self.speed = 1000
-    self.dx = 0
-    self.dy = 0
+    self.vel = {x = 0, y = 0}
 
     self.jumpTime = 0
     self.grounded = false
     self.vert = 0
     self.canJump = true
+
+    self.gravity = 200
 
     self.move = 0
     self.isPlayer = true
@@ -25,8 +26,6 @@ function Player:init (x, y)
 
     self.checkPointX = x
     self.checkPointY = y
-
-    self.force = false
 end
 
 function Player:draw()
@@ -34,8 +33,10 @@ function Player:draw()
 end
 
 function Player:die()
+    self.vel.x = 0
+    self.vel.y = 0
+    self.jumpTime = 0
     if self.lives > 0 then
-        self.force = true
         self.lives = self.lives - 1
     else
         -- self.x = beepis
