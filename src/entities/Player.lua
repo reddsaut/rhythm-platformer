@@ -19,10 +19,21 @@ function Player:init (x, y)
     self.canJump = true
 
     self.move = 0
+    self.isPlayer = true
+
+    self.lives = 3
 end
 
 function Player:draw()
     love.graphics.rectangle(self.drawMode, self.x, self.y, self.width, self.height)
+end
+
+function Player:die()
+    if self.lives > 0 then
+        self.lives = self.lives - 1
+    else
+        self.x = bepis
+    end
 end
 
 return Player
