@@ -1,11 +1,18 @@
 class = require "lib.30log"
 Tiny = require "lib.tiny"
 lb = require "lib.lovebird"
+gamera = require "lib.gamera"
+camera = require "lib.camera"
+
+local screen_width = 1920
+local screen_height = 1080
+local zoom = 1.1
+local cam = camera(1920*zoom/2,1080*zoom/2,1-math.abs(zoom-1))
 
 local Player = require("src.entities.Player")
 local Light = require("src.entities.Light")
 local TileMap = require("src.entities.TileMap")
-TileMap:init(32)
+TileMap:init(32,screen_width,screen_height,zoom)
 local BeatDisplay = require("src.entities.BeatDisplay")
 local Platform = require("src.entities.Platform")
 local Hazard = require("src.entities.Hazard")
@@ -51,12 +58,13 @@ end
 
 
 function love.load()
-    print("loading...")
 end
 
 function love.draw()
     local dt = love.timer.getDelta()
-    world:update(dt)
+    cam:attach()
+        world:update(dt)
+    cam:detach()
 end
 
 function love.update(dt)

@@ -1,12 +1,11 @@
 
-
 local TileMap = {}
 
 function TileMap:createTileMap(tileSize)
     local grid = {}
     self.size = tileSize
-    self.height = love.graphics.getHeight()/tileSize
-    self.width = love.graphics.getWidth()/tileSize
+    self.height = self.screen_height*self.zoom/tileSize
+    self.width = self.screen_width*self.zoom/tileSize
     for i = 1, self.width do
         grid[i] = {}
         for j = 1, self.height do
@@ -163,25 +162,32 @@ function TileMap:draw()
     end
     love.graphics.setShader()
 
-    -- for i, v in ipairs(self.vertexMaps) do
-    --     for j, w in ipairs(v) do
-    --         love.graphics.circle("fill", w[1], w[2], 10)
-    --     end
-    -- end
+    --[[
+    for i, v in ipairs(self.vertexMaps) do
+        for j, w in ipairs(v) do
+            love.graphics.circle("fill", w[1], w[2], 10)
+        end
+    end
+    --]]
 
-    -- for i = 1, TileMap.width do
-    --     for j = 1, TileMap.height do
-    --         love.graphics.rectangle("line", self.size * (i - 1), self.size * (j - 1), self.size, self.size)
-    --         love.graphics.print(i .. ", " .. j, self.size * (i - 1) + 5, self.size * (j - 1) + 5, 0, .6, .6)
-    --     end
-    -- end
+    --[[
+    for i = 1, TileMap.width do
+        for j = 1, TileMap.height do
+            love.graphics.rectangle("line", self.size * (i - 1), self.size * (j - 1), self.size, self.size)
+            love.graphics.print(i .. ", " .. j, self.size * (i - 1) + 5, self.size * (j - 1) + 5, 0, .6, .6)
+        end
+    end
+    --]]
 end
 
 function TileMap:beat()
     self.funNumberHappyTimes = 0
 end
 
-function TileMap:init(tileSize)
+function TileMap:init(tileSize, screen_width, screen_height, zoom)
+    self.screen_width = screen_width
+    self.screen_height = screen_height
+    self.zoom = zoom
     self.loop_hits = {}
     for i = 0, 4 do
         self.loop_hits[i] = true
