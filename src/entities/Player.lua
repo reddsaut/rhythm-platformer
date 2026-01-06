@@ -22,6 +22,11 @@ function Player:init (x, y)
     self.isPlayer = true
 
     self.lives = 3
+
+    self.checkPointX = x
+    self.checkPointY = y
+
+    self.force = false
 end
 
 function Player:draw()
@@ -30,9 +35,10 @@ end
 
 function Player:die()
     if self.lives > 0 then
+        self.force = true
         self.lives = self.lives - 1
     else
-        self.x = bepis
+        -- self.x = beepis
     end
 end
 
