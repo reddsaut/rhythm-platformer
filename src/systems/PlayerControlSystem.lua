@@ -7,13 +7,14 @@ function PlayerControlSystem:process(e, dt)
 	local jump = love.keyboard.isDown('space')
 
 	local width, height, flags = love.window.getMode()
+	local vel = e.vel
 
 	if l and not r then
-		e.dx = -1 * e.speed
+		vel.x = -1 * e.speed
 	elseif r and not l then
-		e.dx = e.speed
+		vel.x = e.speed
 	else
-		e.dx = 0
+		vel.x = 0
 	end
 
 	-- if e.x > width then
@@ -31,7 +32,7 @@ function PlayerControlSystem:process(e, dt)
     end
 
     if e.jumpTime > 0 then
-    	e.dy = -1400
+    	vel.y = - 2000
     	e.jumpTime = e.jumpTime - dt
     end
 
@@ -44,7 +45,6 @@ function PlayerControlSystem:process(e, dt)
     	end
     else
     	e.drawMode = "line"
-    	e.dy = e.dy + 100
     end
 
 end

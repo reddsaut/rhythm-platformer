@@ -13,21 +13,52 @@ function BumpSystem:onRemove(e)
 	bumpWorld:remove(e)
 end
 
+local function forceMoveFilter(e1, e2)
+	if e1.isPlayer then return 'cross' end
+end
+
+local function collisionFilter(e1, e2)
+    if e1.isPlayer then
+        if e2.isHazard then return 'cross' end
+        if e2.isSolid then return 'slide' end
+    elseif e1.isHazard then
+        if e2.isHazard then return nil end
+        if e2.isPlayer then return 'cross' end
+    elseif e1.isSolid then
+    	if e2.isPlayer then return 'slide' end
+    end
+end
+
 function BumpSystem:process(e, dt)
-	if e.dx and e.dy then -- player :)
-		local actualX, actualY, cols, len = bumpWorld:check(e, e.x, e.y + 1) -- something under u
-		e.grounded = len > 0
+	local x, y = e.x, e.y
+	local vel = e.vel
+	local gravity = e.gravity or 0
+	if vel then vel.y = vel.y + gravity end
+	e.grounded = false
 
-		local actualX, actualY, cols, len = bumpWorld:check(e, e.x, e.y - 1) -- something over u
-		if len > 0 and e.dy < 0 then e.dy = 0 end -- hit ur head
 
-		e.x, e.y, cols, len = bumpWorld:move(e, e.x + e.dx * dt, e.y + e.dy * dt) -- move player
+	if vel then
+
+		e.x, e.y, cols, len = bumpWorld:move(e, x + vel.x * dt, y + vel.y * dt, collisionFilter) -- move player
 
 		for i=1,len do
 			local col = cols[i]
 			if col.item.isPlayer and col.other.isHazard then
 				col.item:die()
+				vel.x = 0
+				vel.y = 0
+				e.x, e.y = bumpWorld:move(e, e.checkPointX, e.checkPointY, forceMoveFilter)
 			end
+			if col.type == "slide" then
+            	if col.normal.x == 0 then
+                	vel.y = 0
+                	if col.normal.y < 0 then
+                    	e.grounded = true
+                	end
+            	else
+                	vel.x = 0
+            	end
+            end
 		end
 	end
 end
