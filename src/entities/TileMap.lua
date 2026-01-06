@@ -137,12 +137,12 @@ function TileMap:createMesh()
 
     self.meshList = {}
     for i, v in ipairs(meshes) do
-        local minX = 999999
-        local minY = 999999
-        for i, v in ipairs(v) do
-            if v[1] < minX then minX = v[1] end
-            if v[2] < minY then minY = v[2] end
-        end
+        -- local minX = 999999
+        -- local minY = 999999
+        -- for i, v in ipairs(v) do
+        --     if v[1] < minX then minX = v[1] end
+        --     if v[2] < minY then minY = v[2] end
+        -- end
         --table.insert(v, v[1])
         self.vertexMaps = meshes
         table.insert(self.meshList, {love.graphics.newMesh(v, "triangles"), 0, 0})
@@ -153,14 +153,14 @@ function TileMap:draw()
      self.funNumberHappyTimes = self.funNumberHappyTimes + love.graphics.getWidth()/35
 
     
-    love.graphics.draw(self.meshList[2][1], self.meshList[2][2], self.meshList[2][3])
+    --love.graphics.draw(self.meshList[2][1], self.meshList[2][2], self.meshList[2][3])
     self.ditheredGradientShader:send("fun", self.funNumberHappyTimes)
     love.graphics.setShader(self.ditheredGradientShader)
-    love.graphics.draw(self.meshList[1][1], self.meshList[1][2], self.meshList[1][3])
-    -- for i, v in ipairs(self.meshList) do
+    -- love.graphics.draw(self.meshList[1][1], self.meshList[1][2], self.meshList[1][3])
+    for i, v in ipairs(self.meshList) do
         
-    --    love.graphics.draw(v[1], v[2], v[3])
-    -- end
+       love.graphics.draw(v[1], v[2], v[3])
+    end
     love.graphics.setShader()
 
     -- for i, v in ipairs(self.vertexMaps) do

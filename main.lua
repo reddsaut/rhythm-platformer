@@ -6,10 +6,6 @@ local Player = require("src.entities.Player")
 local Light = require("src.entities.Light")
 local TileMap = require("src.entities.TileMap")
 TileMap:init(32)
-TileMap:createPlatform(15, 17, 10, 16)
-TileMap:createPlatform(10, 20, 12, 13)
-TileMap:createPlatform(1, 32, 23, 23)
-TileMap:createMesh()
 local BeatDisplay = require("src.entities.BeatDisplay")
 local Platform = require("src.entities.Platform")
 local Hazard = require("src.entities.Hazard")
@@ -21,6 +17,15 @@ local playerControlSystem = require("src.systems.PlayerControlSystem")
 local bumpSystem = require("src.systems.BumpSystem")
 
 local width, height, flags = love.window.getMode()
+
+--Level 1 Creation
+TileMap:createMesh()
+local platforms = {}
+table.insert(platforms, Platform(1, 23, 32, 1, TileMap))
+table.insert(platforms, Platform(9, 14, 3, 2, TileMap))
+TileMap:createMesh()
+
+
 
 local world = Tiny.world(
     conductor,
@@ -34,10 +39,13 @@ local world = Tiny.world(
     Light(100,50,4,{1,3}),
     Light(150,50,8,{2}),
     BeatDisplay(500,50,4),
-    Platform(-width, height-96, width * 3, 100),
-    Platform(300, 450, 100, 50),
     Hazard(500, 450, 50, 50)
 )
+
+for i, v in ipairs(platforms) do
+    world:add(v)
+end
+
 
 function love.load()
     print("loading...")
