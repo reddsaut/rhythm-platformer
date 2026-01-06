@@ -1,5 +1,6 @@
 class = require "lib.30log"
 Tiny = require "lib.tiny"
+lb = require "lib.lovebird"
 
 local Player = require("src.entities.Player")
 local Light = require("src.entities.Light")
@@ -30,4 +31,5 @@ function love.draw()
 end
 
 function love.update(dt)
+    lb.update()
 end
