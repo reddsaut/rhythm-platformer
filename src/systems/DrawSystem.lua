@@ -1,6 +1,6 @@
 local drawSystem = Tiny.processingSystem()
 
-drawSystem.filter = Tiny.requireAll("draw", "x", "y")
+drawSystem.filter = Tiny.requireAll("draw")
 
 function drawSystem:process(e)
     e:draw()
