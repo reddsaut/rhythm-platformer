@@ -21,8 +21,11 @@ local width, height, flags = love.window.getMode()
 --Level 1 Creation
 TileMap:createMesh()
 local platforms = {}
-table.insert(platforms, Platform(1, 23, 32, 1, TileMap))
-table.insert(platforms, Platform(9, 14, 3, 2, TileMap))
+table.insert(platforms, Platform(1, 22, 8, 2, TileMap))
+table.insert(platforms, Platform(25, 22, 8, 2, TileMap))
+table.insert(platforms, Platform(13, 13, 8, 2, TileMap))
+table.insert(platforms, Platform(1, 9, 8, 2, TileMap))
+table.insert(platforms, Platform(25, 9, 8, 2, TileMap))
 TileMap:createMesh()
 
 
@@ -39,7 +42,7 @@ local world = Tiny.world(
     Light(100,50,4,{1,3}),
     Light(150,50,8,{2}),
     BeatDisplay(500,50,4),
-    Hazard(500, 450, 50, 50)
+    Hazard(15 * 32, 11 * 32, 64, 32)
 )
 
 for i, v in ipairs(platforms) do

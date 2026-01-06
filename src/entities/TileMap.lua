@@ -169,12 +169,12 @@ function TileMap:draw()
     --     end
     -- end
 
-    -- for i = 1, TileMap.width do
-    --     for j = 1, TileMap.height do
-    --         love.graphics.rectangle("line", self.size * (i - 1), self.size * (j - 1), self.size, self.size)
-    --         love.graphics.print(TileMap.tileMap[i][j], self.size * (i - 1), self.size * (j - 1))
-    --     end
-    -- end
+    for i = 1, TileMap.width do
+        for j = 1, TileMap.height do
+            love.graphics.rectangle("line", self.size * (i - 1), self.size * (j - 1), self.size, self.size)
+            love.graphics.print(i .. ", " .. j, self.size * (i - 1) + 5, self.size * (j - 1) + 5, 0, .6, .6)
+        end
+    end
 end
 
 function TileMap:beat()
