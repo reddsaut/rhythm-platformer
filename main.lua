@@ -1,7 +1,6 @@
 class = require "lib.30log"
 Tiny = require "lib.tiny"
 lb = require "lib.lovebird"
-gamera = require "lib.gamera"
 camera = require "lib.camera"
 
 local screen_width = 1920
