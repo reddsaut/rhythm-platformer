@@ -7,6 +7,7 @@ local Light = require("src.entities.Light")
 local BeatDisplay = require("src.entities.BeatDisplay")
 local Platform = require("src.entities.Platform")
 local Hazard = require("src.entities.Hazard")
+local Enemy = require("src.entities.Enemy")
 
 local conductor = require("src.systems.Conductor")
 local drawSystem = require("src.systems.DrawSystem")
@@ -20,6 +21,7 @@ local world = Tiny.world(
     drawSystem,
     playerControlSystem,
     bumpSystem,
+    Enemy(300,300),
     Player(100,100),
     Light(50,50,4,{0,1,2,3}),
     Light(100,50,4,{1,3}),
@@ -31,7 +33,7 @@ local world = Tiny.world(
 )
 
 function love.load()
-
+    print("loading...")
 end
 
 function love.draw()
