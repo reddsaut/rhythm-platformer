@@ -9,7 +9,7 @@ TileMap:init(32)
 TileMap:createPlatform(15, 17, 10, 16)
 TileMap:createPlatform(10, 20, 12, 13)
 TileMap:createPlatform(15, 17, 10, 16)
-TileMap:createPlatform(1, 32, 24, 24)
+TileMap:createPlatform(1, 32, 23, 23)
 TileMap:createMesh()
 local BeatDisplay = require("src.entities.BeatDisplay")
 local Platform = require("src.entities.Platform")
@@ -30,14 +30,12 @@ local world = Tiny.world(
     bumpSystem,
     Enemy(300,300),
     Player(100,100),
-    Light(50,50),
-    Light(100,50),
     TileMap,
     Light(50,50,4,{0,1,2,3}),
     Light(100,50,4,{1,3}),
     Light(150,50,8,{2}),
     BeatDisplay(500,50,4),
-    Platform(-width, height-100, width * 3, 100),
+    Platform(-width, height-96, width * 3, 100),
     Platform(300, 250, 100, 50),
     Hazard(500, 250, 50, 50)
 )
