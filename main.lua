@@ -14,8 +14,9 @@ local world = Tiny.world(
     drawSystem,
     playerControlSystem,
     Player(100,100),
-    Light(50,50,2,{0}),
-    Light(100,50,4,{2}),
+    Light(50,50,4,{0,1,2,3}),
+    Light(100,50,4,{1,3}),
+    Light(150,50,8,{2}),
     BeatDisplay(500,50,4)
 )
 

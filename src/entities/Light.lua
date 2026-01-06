@@ -6,6 +6,7 @@ function Light:init (x, y, loop_length, loop_hits)
     self.x = x
     self.y = y
     self.lit = false
+    self.brightness = 0
     self.loop_length = loop_length
     self.loop_hits = {}
     for key, value in pairs(loop_hits) do
@@ -13,18 +14,15 @@ function Light:init (x, y, loop_length, loop_hits)
     end
 end
 
-function Light:draw ()
-    if self.lit == true then
-        love.graphics.circle("fill", self.x, self.y, 20, 20)
-    else
-        love.graphics.circle("line", self.x, self.y, 20, 20)
-    end
+function Light:draw (dt)
+    love.graphics.setColor(self.brightness,0,0)
+    self.brightness = self.brightness - 1 * dt
+    love.graphics.circle("fill", self.x, self.y, 20, 20)
+    love.graphics.setColor(1,1,1)
 end
 
-function Light:beat (n)
-    if self.loop_hits[n % self.loop_length] then
-        self.lit = not self.lit
-    end
+function Light:beat ()
+    self.brightness = 1
 end
 
 return Light

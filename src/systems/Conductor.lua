@@ -4,11 +4,11 @@ local music = love.audio.newSource("music/song_looping.wav", "stream")
 local bpm = 100.0
 local quarter = 60.0 / bpm
 local song_position = 0
-local last_beat = 0
+local last_beat = -1
 local beat_num = 0
 local trigger = false
 
-conductor.filter = Tiny.requireAll("beat")
+conductor.filter = Tiny.requireAll("beat", "loop_length", "loop_hits")
 
 function conductor:onAddToWorld()
     music:setLooping(true)
@@ -17,6 +17,10 @@ end
 
 function conductor:preProcess()
     song_position = music:tell("seconds")
+    if last_beat == -1 then
+        trigger = true
+        last_beat = 0
+    end
     if last_beat > song_position then --resets "last_beat" after song loops back to the start
         last_beat = 0
         trigger = true
@@ -32,7 +36,10 @@ end
 
 function conductor:process(e)
     if trigger == true then
-        e:beat(beat_num)
+        local loop_num = beat_num % e.loop_length
+        if e.loop_hits[loop_num] then
+            e:beat(loop_num)
+        end
     end
 end
 
