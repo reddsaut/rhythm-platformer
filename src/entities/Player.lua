@@ -5,6 +5,7 @@ local Player = class("Player")
 function Player:init (x, y)
     self.x = x
     self.y = y
+    self.sizeIdentity = {w = 50, h = 50}
     self.width = 50
     self.height = 50
     self.drawMode = "line"
@@ -17,7 +18,13 @@ function Player:init (x, y)
     self.vert = 0
     self.canJump = true
 
+    self.dashTime = 0
+    self.direction = 1
+    self.canDash = true
+    self.dashSize = {w = 75, h = 25}
+
     self.gravity = 170
+    self.ogGravity = 170
 
     self.move = 0
     self.isPlayer = true
@@ -29,6 +36,12 @@ function Player:init (x, y)
 end
 
 function Player:draw()
+    if self.grounded or self.dashTime > 0 then
+        self.drawMode = "fill"
+    else
+        self.drawMode = "line"
+    end
+
     love.graphics.rectangle(self.drawMode, self.x, self.y, self.width, self.height)
 end
 
