@@ -3,15 +3,14 @@ Tiny = require "lib.tiny"
 lb = require "lib.lovebird"
 camera = require "lib.camera"
 
-local screen_width = 1920
-local screen_height = 1080
-local zoom = 1.1
-local cam = camera(1920*zoom/2,1080*zoom/2,1-math.abs(zoom-1))
+
+local zoom = 1
+local cam = camera(love.graphics.getWidth()/2,love.graphics.getHeight()*zoom/2,1-math.abs(zoom-1))
 
 local Player = require("src.entities.Player")
 local Light = require("src.entities.Light")
 local TileMap = require("src.entities.TileMap")
-TileMap:init(32,screen_width,screen_height,zoom)
+TileMap:init(32, zoom)
 local BeatDisplay = require("src.entities.BeatDisplay")
 local Platform = require("src.entities.Platform")
 local Hazard = require("src.entities.Hazard")

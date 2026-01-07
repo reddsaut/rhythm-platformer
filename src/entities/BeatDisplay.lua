@@ -10,7 +10,7 @@ function BeatDisplay:init (x, y, loop_length)
 end
 
 function BeatDisplay:draw ()
-    love.graphics.print(self.num,self.x,self.y)
+    --love.graphics.print(self.num,self.x,self.y)
 end
 
 function BeatDisplay:beat (n)

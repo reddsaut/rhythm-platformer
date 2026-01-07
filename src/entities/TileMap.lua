@@ -162,10 +162,10 @@ function TileMap:draw()
     --love.graphics.draw(self.meshList[2][1], self.meshList[2][2], self.meshList[2][3])
     self.ditheredGradientShaderY:send("fun", self.funNumberHappyTimes)
     -- love.graphics.draw(self.meshList[1][1], self.meshList[1][2], self.meshList[1][3])
-    love.graphics.print(self.funNumberHappyTimes, 0, 0)
+    --love.graphics.print(self.funNumberHappyTimes, 0, 0)
     for i, v in ipairs(self.meshList) do
         
-        love.graphics.print("base: ".. v[3] .. " range: " .. v[5], i*200, 32)
+        --love.graphics.print("base: ".. v[3] .. " range: " .. v[5], i*200, 32)
         self.ditheredGradientShaderY:send("base", v[3])
         self.ditheredGradientShaderY:send("range", v[5])
         love.graphics.setShader(self.ditheredGradientShaderY)
@@ -202,9 +202,9 @@ function TileMap:crotchet(crotchet)
     self.funNumberHappyTimes = crotchet
 end
 
-function TileMap:init(tileSize, screen_width, screen_height, zoom)
-    self.screen_width = screen_width
-    self.screen_height = screen_height
+function TileMap:init(tileSize, zoom)
+    self.screen_width = love.graphics.getWidth()
+    self.screen_height = love.graphics.getHeight()
     self.zoom = zoom
     self.loop_hits = {}
     for i = 0, 4 do
@@ -241,7 +241,7 @@ function TileMap:init(tileSize, screen_width, screen_height, zoom)
             bayersMatrix[14] = vec4(63.0/64.0, 31.0/64.0, 55.0/64.0, 23.0/64.0);
             bayersMatrix[15] = vec4(61.0/64.0, 29.0/64.0, 53.0/64.0, 21.0/64.0);
             if(screen_coords[0] >= fun + base){
-                alpha = (screen_coords[0] - (fun + base))/1024;
+                alpha = (screen_coords[0] - (fun + base))/love_ScreenSize.x;
             }
             else{
                 alpha = screen_coords[0]/(fun + base);
@@ -312,7 +312,7 @@ function TileMap:init(tileSize, screen_width, screen_height, zoom)
         vec4 effect( vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords )
         {
             if(screen_coords[0] >= fun){
-                resultCol = vec4( 1.0f, 1.0f, 1.0f, (screen_coords[0] - fun)/1024);
+                resultCol = vec4( 1.0f, 1.0f, 1.0f, (screen_coords[0] - fun)/love_ScreenSize.x);
             }
             else{
                 resultCol = vec4( 1.0f, 1.0f, 1.0f, screen_coords[0]/fun);
@@ -326,8 +326,8 @@ function TileMap:init(tileSize, screen_width, screen_height, zoom)
         vec4 resultCol;
         vec4 effect( vec4 color, Image tex, vec2 texture_coords, vec2 screen_coords )
         {
-            stepSize[0] = 1.0/1024.0;
-            stepSize[1] = 1.0/800.0;
+            stepSize[0] = 1.0/love_ScreenSize.x;
+            stepSize[1] = 1.0/love_ScreenSize.y;
             float alpha = 4*texture2D( tex, texture_coords ).a;
             alpha -= Texel( tex, texture_coords + vec2( stepSize.x, 0.0f ) ).a;
             alpha -= Texel( tex, texture_coords + vec2( -1*stepSize.x, 0.0f ) ).a;
