@@ -7,6 +7,7 @@ local song_position = 0
 local last_beat = -1
 local beat_num = 0
 local trigger = false
+local crotchet = 0
 
 conductor.filter = Tiny.requireAll("beat", "loop_length", "loop_hits")
 
@@ -20,16 +21,20 @@ function conductor:preProcess()
     if last_beat == -1 then
         trigger = true
         last_beat = 0
+        crotchet = 0
     end
     if last_beat > song_position then --resets "last_beat" after song loops back to the start
         last_beat = 0
+        crotchet = 0
         trigger = true
         beat_num = beat_num + 1
     elseif song_position > last_beat + quarter then
         last_beat = last_beat + quarter
         trigger = true
         beat_num = beat_num + 1
+        crotchet = 0
     else
+        crotchet = (song_position - last_beat)/quarter
         trigger = false
     end
 end
@@ -40,6 +45,9 @@ function conductor:process(e)
         if e.loop_hits[loop_num] then
             e:beat(loop_num)
         end
+    end
+    if e.crotchet then
+        e:crotchet(crotchet)
     end
 end
 

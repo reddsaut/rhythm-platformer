@@ -112,5 +112,11 @@ TileMap:init(32)
 TileMap:createPlatform(1, 5, 10, 5)
 TileMap:createMesh()
 
+-- if(screen_coords[0] >= fun){
+--                 alpha = (texture_coords[0] - fun);
+--             }
+--             else{
+--                 alpha = texture_coords[0];
+--             }
 
     
