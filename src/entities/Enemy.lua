@@ -4,7 +4,7 @@ animate = require("animation")
 local Enemy = class("Enemy")
 
                     --bottom left -bot right  -top left  -top right
-local snap_points = {{100, 600}, {924, 600}, {100, 200}, {924, 200}}
+local snap_points = {{3*32, 32*19}, {28*32, 32*19}, {3*32, 32*6}, {28*32, 32*6}}
 local snap_animation = {{nil,4,6,10},{3,nil,9,6},{5,8,nil,4},{7,5,3,nil}}
 local loop_hits = {0, 1, 2, 4, 6, 7}
 
@@ -19,6 +19,8 @@ function Enemy:init (x, y)
     self.animation = 1
     self.loop_length = 8
     self.loop_hits = {}
+    self.image = love.graphics.newImage("sprites/evil_red_ball.png")
+    self.image:setFilter("nearest","nearest") 
     self.quads = animate.makeQuads(love.graphics.newImage("sprites/evil_red_ball.png"), 32, 32)
     self.isHazard = true
     for key, value in pairs(loop_hits) do
@@ -38,7 +40,7 @@ function Enemy:draw(dt)
     self.y = self.y + self.vel.y * dt
 
     -- draw
-    love.graphics.draw(love.graphics.newImage("sprites/evil_red_ball.png"), self.quads[self.animation], self.x, self.y, 0, 2, 2, 2, 2)
+    love.graphics.draw(self.image, self.quads[self.animation], self.x, self.y, 0, 2, 2, 2, 2)
     -- love.graphics.rectangle("line",self.x,self.y,self.width,self.height) --hitbox
 end
 

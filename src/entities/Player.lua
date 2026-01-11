@@ -5,9 +5,9 @@ local Player = class("Player")
 function Player:init (x, y)
     self.x = x
     self.y = y
-    self.sizeIdentity = {w = 50, h = 50}
-    self.width = 50
-    self.height = 50
+    self.sizeIdentity = {w = 32, h = 32}
+    self.width = 32
+    self.height = 32
     self.drawMode = "line"
 
     self.speed = 1000

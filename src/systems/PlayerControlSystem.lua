@@ -4,8 +4,8 @@ PlayerControlSystem.filter = Tiny.requireAll("move", "x", "y")
 
 function PlayerControlSystem:process(e, dt)
 	local l, r, u, d = love.keyboard.isDown('a') or love.keyboard.isDown('left'), love.keyboard.isDown('d') or love.keyboard.isDown('right'), love.keyboard.isDown('w') or love.keyboard.isDown('up'), love.keyboard.isDown("s") or love.keyboard.isDown('down')
-	local jumpPressed = love.keyboard.isDown('space')
-	local dashPressed = love.keyboard.isDown('j')
+	local jumpPressed = love.keyboard.isDown('space') or love.keyboard.isDown('z')
+	local dashPressed = love.keyboard.isDown('j') or love.keyboard.isDown('x')
 
 	local width, height, flags = love.window.getMode()
 	local vel = e.vel
@@ -33,7 +33,7 @@ function PlayerControlSystem:process(e, dt)
     end
 
     if e.grounded and jumpPressed and e.canJump then
-    	e.jumpTime = .1
+    	e.jumpTime = .08
     	e.canJump = false
     end
 

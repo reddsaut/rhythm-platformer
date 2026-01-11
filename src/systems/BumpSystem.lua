@@ -36,6 +36,9 @@ function BumpSystem:process(e, dt)
 	if vel then vel.y = vel.y + gravity end
 	e.grounded = false
 
+	if e.morph then
+		bumpWorld:update(e, x, y, e.width, e.height)
+	end
 
 	if vel then
 
