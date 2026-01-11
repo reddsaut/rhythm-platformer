@@ -52,7 +52,7 @@ function PlayerControlSystem:process(e, dt)
    		e.dashTime = e.dashTime - dt
    	end
 
-   	if e.dashTime <= 0 then
+   	if e.dashTime <= 0 and e.gravity == 0 then
    		e.gravity = e.ogGravity
    		e.width = e.sizeIdentity.w
     	e.height = e.sizeIdentity.h

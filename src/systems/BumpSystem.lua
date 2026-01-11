@@ -32,6 +32,7 @@ end
 function BumpSystem:process(e, dt)
 	local x, y = e.x, e.y
 	local vel = e.vel
+	local destination = e.destination
 	local gravity = e.gravity or 0
 	if vel then vel.y = vel.y + gravity end
 	e.grounded = false
@@ -39,7 +40,7 @@ function BumpSystem:process(e, dt)
 
 	if vel then
 
-		e.x, e.y, cols, len = bumpWorld:move(e, x + vel.x * dt, y + vel.y * dt, collisionFilter) -- move player
+		e.x, e.y, cols, len = bumpWorld:move(e, x + vel.x * dt, y + vel.y * dt, collisionFilter)
 
 		for i=1,len do
 			local col = cols[i]
@@ -60,6 +61,19 @@ function BumpSystem:process(e, dt)
             	end
             end
 		end
+	elseif destination then
+		e.x, e.y, cols, len = bumpWorld:move(e, destination.x, destination.y, collisionFilter)
+		for i=1, len do
+			local col = cols[i]
+			if col.item.isHazard and col.other.isPlayer then
+				local player = col.other
+				player:die()
+				player.vel.x = 0
+				player.vel.y = 0
+				player.x, player.y = bumpWorld:move(player, player.checkPointX, player.checkPointY, forceMoveFilter)
+			end
+		end
+
 	end
 end
 

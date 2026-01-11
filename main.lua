@@ -16,6 +16,8 @@ local Platform = require("src.entities.Platform")
 local Hazard = require("src.entities.Hazard")
 local Enemy = require("src.entities.Enemy")
 
+local Laser = require("src.entities.Laser")
+
 local conductor = require("src.systems.Conductor")
 local drawSystem = require("src.systems.DrawSystem")
 local playerControlSystem = require("src.systems.PlayerControlSystem")
@@ -49,11 +51,11 @@ local world = Tiny.world(
     BeatDisplay(500,50,4),
     Hazard(8 * 32, 23 * 32, 16 * 32, 2 * 32)
 )
-
 for i, v in ipairs(platforms) do
     world:add(v)
 end
 
+world:addEntity(Laser(500, 450, 1000, 100))
 
 function love.load()
 end
